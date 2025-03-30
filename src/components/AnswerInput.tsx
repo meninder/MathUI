@@ -21,19 +21,24 @@ const AnswerInput: React.FC<AnswerInputProps> = ({
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
+    // Only allow numbers
+    const value = e.target.value.replace(/[^0-9-]/g, '');
+    onChange(value);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4">
+    <form onSubmit={handleSubmit} className="mt-2">
       <div className="flex gap-2">
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9-]*"
           value={value}
           onChange={handleInputChange}
           placeholder="Enter your answer"
-          className="flex-1 glass rounded-lg px-4 py-2 text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-primary"
+          className="flex-1 bg-background border border-input rounded-lg px-4 py-2 text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           disabled={isSubmitting}
+          autoFocus
         />
         <button
           type="submit"

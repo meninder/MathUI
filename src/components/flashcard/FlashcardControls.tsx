@@ -1,58 +1,61 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react';
+import FlashcardDisplay from './FlashcardDisplay';
+import { AnswerInput } from './AnswerInput';
+import { ArithmeticQuestion } from '@/utils/arithmeticUtils';
 
 interface FlashcardControlsProps {
+  question: ArithmeticQuestion;
   isFlipped: boolean;
+  isAnimating: boolean;
   hasAnswered: boolean;
-  canGoNext: boolean;
-  canGoPrevious: boolean;
+  isNewQuestion: boolean;
+  onAnswerSubmit: (answer: string) => void;
+  onNextQuestion: () => void;
   onFlip: () => void;
-  onNext: (e: React.MouseEvent) => void;
-  onPrevious: (e: React.MouseEvent) => void;
+  onKeyPress: (e: React.KeyboardEvent) => void;
+  inputRef: React.RefObject<HTMLInputElement>;
 }
 
 const FlashcardControls: React.FC<FlashcardControlsProps> = ({
+  question,
   isFlipped,
+  isAnimating,
   hasAnswered,
-  canGoNext,
-  canGoPrevious,
+  isNewQuestion,
+  onAnswerSubmit,
+  onNextQuestion,
   onFlip,
-  onNext,
-  onPrevious
+  onKeyPress,
+  inputRef
 }) => {
   return (
-    <div className="flex justify-between items-center mt-4">
-      <button
-        onClick={onPrevious}
-        disabled={!canGoPrevious}
-        className={cn(
-          "btn-elegant p-2 rounded-full",
-          !canGoPrevious && "opacity-50 cursor-not-allowed"
-        )}
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
+    <div className="flex flex-col items-center gap-6">
+      <FlashcardDisplay
+        question={question}
+        isFlipped={isFlipped}
+        isAnimating={isAnimating}
+        hasAnswered={hasAnswered}
+        isNewQuestion={isNewQuestion}
+      />
 
-      {hasAnswered && (
-        <button
-          onClick={onFlip}
-          className="btn-elegant p-2 rounded-full"
-        >
-          <RotateCcw className="w-6 h-6" />
-        </button>
-      )}
+      <div className="flex flex-col items-center gap-4 w-full max-w-md">
+        <AnswerInput
+          ref={inputRef}
+          onSubmit={onAnswerSubmit}
+          onKeyPress={onKeyPress}
+          disabled={hasAnswered}
+        />
 
-      <button
-        onClick={onNext}
-        disabled={!canGoNext}
-        className={cn(
-          "btn-elegant p-2 rounded-full",
-          !canGoNext && "opacity-50 cursor-not-allowed"
+        {hasAnswered && (
+          <button
+            onClick={onNextQuestion}
+            className="btn-primary w-full"
+          >
+            Next Question
+          </button>
         )}
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
+      </div>
     </div>
   );
 };

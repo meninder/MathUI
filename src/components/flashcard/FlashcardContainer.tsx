@@ -40,7 +40,7 @@ const FlashcardContainer: React.FC<FlashcardContainerProps> = ({
   }, [question]);
 
   const handleFlip = () => {
-    if (!isAnimating && !hasAnswered) {
+    if (!isAnimating && hasAnswered) {
       setIsAnimating(true);
       setIsFlipped(!isFlipped);
       setTimeout(() => setIsAnimating(false), 600); // Match animation duration
@@ -78,20 +78,12 @@ const FlashcardContainer: React.FC<FlashcardContainerProps> = ({
     }
   };
 
-  const handleFlipFromSubmit = () => {
-    if (!isAnimating) {
-      setIsAnimating(true);
-      setIsFlipped(!isFlipped);
-      setTimeout(() => setIsAnimating(false), 600);
-    }
-  };
-
   const handleInputChange = (value: string) => {
     setUserInputValue(value);
   };
 
   return (
-    <div className="relative">
+    <div className="relative space-y-6">
       <FlashcardDisplay
         question={question}
         isFlipped={isFlipped}
@@ -101,22 +93,24 @@ const FlashcardContainer: React.FC<FlashcardContainerProps> = ({
       />
 
       {!hasAnswered && (
-        <AnswerInput
-          value={userInputValue}
-          onChange={handleInputChange}
-          onSubmit={handleAnswerSubmit}
-          isSubmitting={isSubmitting}
-        />
+        <div className="w-full max-w-md mx-auto">
+          <AnswerInput
+            value={userInputValue}
+            onChange={handleInputChange}
+            onSubmit={handleAnswerSubmit}
+            isSubmitting={isSubmitting}
+          />
+        </div>
       )}
 
       <FlashcardControls
-        isFlipped={isFlipped}
-        hasAnswered={hasAnswered}
-        canGoNext={canGoNext}
-        canGoPrevious={canGoPrevious}
-        onFlip={handleFlipFromSubmit}
         onNext={handleNext}
         onPrevious={handlePrevious}
+        canGoNext={canGoNext}
+        canGoPrevious={canGoPrevious}
+        onFlip={handleFlip}
+        hasAnswered={hasAnswered}
+        isFlipped={isFlipped}
       />
     </div>
   );

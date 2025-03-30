@@ -25,9 +25,9 @@ const FlashcardDisplay: React.FC<FlashcardDisplayProps> = ({
         isNewQuestion && "animate-scale-up"
       )}
     >
-      <div className={cn("card-flip w-full h-full", isFlipped && "flipped")}>
+      <div className={cn("card-flip w-full h-full relative", isFlipped && "flipped")}>
         {/* Card Front */}
-        <div className="card-front w-full h-full">
+        <div className="card-front w-full h-full absolute inset-0 backface-hidden">
           <div className="glass w-full h-full rounded-2xl shadow-soft p-8 flex flex-col items-center justify-center cursor-pointer select-none">
             <div className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
               {question.questionText}
@@ -35,22 +35,22 @@ const FlashcardDisplay: React.FC<FlashcardDisplayProps> = ({
 
             {!hasAnswered && (
               <div className="text-sm text-muted-foreground mt-2">
-                {isFlipped ? "Tap to see question" : "Tap to see answer"}
+                Enter your answer below
               </div>
             )}
           </div>
         </div>
 
         {/* Card Back */}
-        <div className="card-back w-full h-full">
+        <div className="card-back w-full h-full absolute inset-0 backface-hidden rotate-y-180">
           <div className="glass w-full h-full rounded-2xl shadow-soft p-8 flex flex-col items-center justify-center cursor-pointer select-none">
             <div className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
               {question.answerText}
             </div>
 
-            {!hasAnswered && (
+            {hasAnswered && (
               <div className="text-sm text-muted-foreground mt-2">
-                Tap to see question
+                Tap to see question again
               </div>
             )}
           </div>
