@@ -5,15 +5,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Layout from './components/Layout';
 import Home from "./pages/Home";
-import { MultiplesHopper } from "./components/games/MultiplesHopper";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./providers/theme-provider";
 import { Button } from "./components/ui/button";
-import { Card } from "./components/ui/card";
-import ArithmeticGame from "./components/arithmetic/ArithmeticGame";
-import { MultiplesHopperSetup } from "./components/games/MultiplesHopperSetup";
 import { cn } from "./lib/utils";
-import { ArithmeticProvider } from './contexts/ArithmeticContext';
+import { ArithmeticProvider, ArithmeticGame } from './games/arithmetic';
+import { MultiplesHopper, MultiplesHopperSetup } from './games/multiples';
 
 const queryClient = new QueryClient();
 
