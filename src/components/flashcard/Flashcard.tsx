@@ -20,6 +20,7 @@ const Flashcard: React.FC<FlashcardProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -27,11 +28,14 @@ const Flashcard: React.FC<FlashcardProps> = ({
       setIsFlipped(false);
       setHasAnswered(false);
       setIsAnimating(true);
+      setInputValue('');
       setTimeout(() => setIsAnimating(false), 300);
     }
   }, [isNewQuestion]);
 
   const handleAnswerSubmit = (answer: string) => {
+    if (!answer.trim()) return;
+
     const userAnswer = parseInt(answer);
     if (userAnswer === question.answer) {
       onCorrectAnswer();
@@ -44,9 +48,12 @@ const Flashcard: React.FC<FlashcardProps> = ({
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      const input = e.target as HTMLInputElement;
-      handleAnswerSubmit(input.value);
+      handleAnswerSubmit(inputValue);
     }
+  };
+
+  const handleSubmit = () => {
+    handleAnswerSubmit(inputValue);
   };
 
   return (
@@ -60,14 +67,26 @@ const Flashcard: React.FC<FlashcardProps> = ({
       />
 
       <div className="flex flex-col items-center gap-4 w-full max-w-md">
-        <input
-          ref={inputRef}
-          type="number"
-          className="w-full px-4 py-2 text-lg rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-          placeholder="Enter your answer"
-          onKeyPress={handleKeyPress}
-          disabled={hasAnswered}
-        />
+        <div className="flex gap-2 w-full">
+          <input
+            ref={inputRef}
+            type="number"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="w-full px-4 py-2 text-lg rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            placeholder="Enter your answer"
+            onKeyPress={handleKeyPress}
+            disabled={hasAnswered}
+          />
+          {!hasAnswered && (
+            <button
+              onClick={handleSubmit}
+              className="btn-primary px-6"
+            >
+              Submit
+            </button>
+          )}
+        </div>
 
         {hasAnswered && (
           <button

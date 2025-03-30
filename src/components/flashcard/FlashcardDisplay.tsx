@@ -20,7 +20,7 @@ const FlashcardDisplay: React.FC<FlashcardDisplayProps> = ({
   return (
     <div
       className={cn(
-        "card-flip-container aspect-[4/3] w-full",
+        "card-flip-container aspect-[7/4] w-full max-w-md mx-auto",
         hasAnswered && "pointer-events-none",
         isNewQuestion && "animate-scale-up"
       )}
@@ -28,8 +28,8 @@ const FlashcardDisplay: React.FC<FlashcardDisplayProps> = ({
       <div className={cn("card-flip w-full h-full relative", isFlipped && "flipped")}>
         {/* Card Front */}
         <div className="card-front w-full h-full absolute inset-0 backface-hidden">
-          <div className="glass w-full h-full rounded-2xl shadow-soft p-8 flex flex-col items-center justify-center cursor-pointer select-none">
-            <div className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
+          <div className="glass w-full h-full rounded-2xl shadow-soft p-6 flex flex-col items-center justify-center cursor-pointer select-none">
+            <div className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
               {question.questionText}
             </div>
 
@@ -43,8 +43,8 @@ const FlashcardDisplay: React.FC<FlashcardDisplayProps> = ({
 
         {/* Card Back */}
         <div className="card-back w-full h-full absolute inset-0 backface-hidden rotate-y-180">
-          <div className="glass w-full h-full rounded-2xl shadow-soft p-8 flex flex-col items-center justify-center cursor-pointer select-none">
-            <div className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
+          <div className="glass w-full h-full rounded-2xl shadow-soft p-6 flex flex-col items-center justify-center cursor-pointer select-none">
+            <div className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
               {question.answerText}
             </div>
 
