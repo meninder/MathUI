@@ -44,52 +44,55 @@ const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
   return (
     <div className="animate-scale-up w-full max-w-md mx-auto">
-      <div className="glass p-8 rounded-2xl shadow-soft">
-        <h2 className="text-2xl font-bold text-center mb-6">Practice Complete!</h2>
+      <div className="glass p-6 rounded-2xl shadow-soft">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold">Practice Complete!</h2>
+          <Trophy className="w-8 h-8 text-primary" />
+        </div>
 
-        <div className="flex flex-col items-center mb-8">
-          <Trophy className="w-16 h-16 text-primary mb-4" />
-          <div className="text-3xl font-bold text-primary mb-2">{percentage}%</div>
-          <div className="text-lg text-muted-foreground mb-4">{message}</div>
-          <div className="text-sm text-muted-foreground">
-            {correctAnswers} correct out of {totalQuestions} questions
+        <div className="flex items-center justify-between mb-4 bg-secondary/10 p-3 rounded-lg">
+          <div>
+            <div className="text-2xl font-bold text-primary">{percentage}%</div>
+            <div className="text-sm text-muted-foreground">{message}</div>
+          </div>
+          <div className="text-sm text-right text-muted-foreground">
+            {correctAnswers} / {totalQuestions}<br />correct
           </div>
         </div>
 
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">Summary</h3>
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="bg-secondary/20 p-3 rounded-lg">
-              <div className="text-muted-foreground">Operation</div>
+        <div className="mb-4">
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <div className="bg-secondary/10 p-2 rounded-lg">
+              <div className="text-muted-foreground text-xs">Operation</div>
               <div className="font-medium">{operation}</div>
             </div>
-            <div className="bg-secondary/20 p-3 rounded-lg">
-              <div className="text-muted-foreground">Difficulty</div>
+            <div className="bg-secondary/10 p-2 rounded-lg">
+              <div className="text-muted-foreground text-xs">Difficulty</div>
               <div className="font-medium">{difficulty}</div>
             </div>
           </div>
         </div>
 
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">Question Review</h3>
-          <div className="max-h-[300px] overflow-y-auto">
+        <div className="mb-4">
+          <h3 className="text-sm font-semibold mb-2">Question Review</h3>
+          <div className="max-h-[250px] overflow-y-auto">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Question</TableHead>
-                  <TableHead>Your Answer</TableHead>
-                  <TableHead>Correct</TableHead>
+                  <TableHead className="py-2">Question</TableHead>
+                  <TableHead className="py-2">Your Answer</TableHead>
+                  <TableHead className="py-2">Correct</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {questions.map((question, index) => (
                   <TableRow key={index}>
-                    <TableCell className="flex items-center gap-2">
+                    <TableCell className="flex items-center gap-2 py-1.5">
                       {getOperationIcon(question.questionText)}
                       {question.questionText}
                     </TableCell>
-                    <TableCell>{question.answerText}</TableCell>
-                    <TableCell>
+                    <TableCell className="py-1.5">{question.answerText}</TableCell>
+                    <TableCell className="py-1.5">
                       {question.answer === Number(question.answerText) ? (
                         <span className="text-green-500">✓</span>
                       ) : (
@@ -103,7 +106,7 @@ const SummaryScreen: React.FC<SummaryScreenProps> = ({
           </div>
         </div>
 
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center">
           <button
             onClick={onReset}
             className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
