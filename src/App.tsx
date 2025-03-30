@@ -56,35 +56,7 @@ function App() {
 
               <main className="container mx-auto px-4 py-8">
                 <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <div className="grid gap-6 md:grid-cols-2">
-                        <Link to="/arithmetic">
-                          <Card className="p-6 hover:bg-accent transition-colors">
-                            <h2 className="text-2xl font-bold mb-2">
-                              Arithmetic Practice
-                            </h2>
-                            <p className="text-muted-foreground">
-                              Practice basic arithmetic operations with customizable
-                              difficulty levels.
-                            </p>
-                          </Card>
-                        </Link>
-                        <Link to="/multiples">
-                          <Card className="p-6 hover:bg-accent transition-colors">
-                            <h2 className="text-2xl font-bold mb-2">
-                              Multiples Hopper
-                            </h2>
-                            <p className="text-muted-foreground">
-                              Practice identifying multiples of numbers with increasing
-                              difficulty.
-                            </p>
-                          </Card>
-                        </Link>
-                      </div>
-                    }
-                  />
+                  <Route path="/" element={<Home />} />
                   <Route
                     path="/arithmetic"
                     element={
