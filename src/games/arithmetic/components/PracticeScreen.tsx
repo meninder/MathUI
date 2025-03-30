@@ -1,11 +1,11 @@
 import React from 'react';
-import { useArithmetic } from '../../contexts/ArithmeticContext';
-import Flashcard from '../flashcard/Flashcard';
-import { cn } from '../../lib/utils';
-import { Card } from '../ui/card';
-import AnswerInput from '../AnswerInput';
-import ResultDisplay from '../ResultDisplay';
-import { GameHeader } from '../GameHeader';
+import { useArithmetic } from '../ArithmeticContext';
+import Flashcard from '@/components/flashcard/Flashcard';
+import { cn } from '@/lib/utils';
+import { Card } from '@/components/ui/card';
+import AnswerInput from '@/components/AnswerInput';
+import ResultDisplay from '@/components/ResultDisplay';
+import { GameHeader } from '@/components/GameHeader';
 
 const PracticeScreen: React.FC = () => {
   const {

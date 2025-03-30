@@ -1,8 +1,8 @@
 import React from 'react';
-import { useArithmetic } from '../../contexts/ArithmeticContext';
-import SummaryScreen from '../SummaryScreen';
-import { Button } from '../ui/button';
-import { Card } from '../ui/card';
+import { useArithmetic } from '../ArithmeticContext';
+import SummaryScreen from '@/components/SummaryScreen';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { RotateCcw } from 'lucide-react';
 
 const ResultScreen: React.FC = () => {

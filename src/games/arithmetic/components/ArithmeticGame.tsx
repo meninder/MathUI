@@ -1,9 +1,9 @@
 import React from 'react';
-import { useArithmetic } from '../../contexts/ArithmeticContext';
+import { useArithmetic } from '../ArithmeticContext';
 import SetupScreen from './SetupScreen';
 import PracticeScreen from './PracticeScreen';
 import ResultScreen from './ResultScreen';
-import { Toaster } from '../ui/toaster';
+import { Toaster } from '@/components/ui/toaster';
 
 const ArithmeticGame: React.FC = () => {
   const { step } = useArithmetic();

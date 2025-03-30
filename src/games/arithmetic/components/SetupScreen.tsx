@@ -1,9 +1,9 @@
 import React from 'react';
-import { useArithmetic } from '../../contexts/ArithmeticContext';
-import OptionSelector from '../OptionSelector';
-import OperationStep from '../operation-selector/OperationStep';
-import DifficultyStep from '../operation-selector/DifficultyStep';
-import CountStep from '../operation-selector/CountStep';
+import { useArithmetic } from '../ArithmeticContext';
+import OptionSelector from '@/components/OptionSelector';
+import OperationStep from '@/components/operation-selector/OperationStep';
+import DifficultyStep from '@/components/operation-selector/DifficultyStep';
+import CountStep from '@/components/operation-selector/CountStep';
 
 const SetupScreen: React.FC = () => {
   const {

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useToast } from '../hooks/use-toast';
-import { generateQuestions, Operation, Difficulty, ArithmeticQuestion } from '../utils/arithmeticUtils';
+import { useToast } from '@/components/ui/hooks/use-toast';
+import { generateQuestions, Operation, Difficulty, ArithmeticQuestion } from '@/utils/arithmeticUtils';
 
 type ArithmeticContextType = {
   step: 'setup' | 'practice' | 'summary';
