@@ -1,5 +1,5 @@
 import React from 'react';
-import { Difficulty } from '@/utils/arithmeticUtils';
+import { Difficulty } from '../../utils/arithmeticUtils';
 import DifficultyButton from './DifficultyButton';
 
 interface DifficultyStepProps {

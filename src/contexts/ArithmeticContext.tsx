@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '../hooks/use-toast';
 import { generateQuestions, Operation, Difficulty, ArithmeticQuestion } from '../utils/arithmeticUtils';
 
 type ArithmeticContextType = {

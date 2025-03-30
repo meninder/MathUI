@@ -1,6 +1,6 @@
 import React from 'react';
-import { cn } from '@/lib/utils';
-import { Difficulty } from '@/utils/arithmeticUtils';
+import { cn } from '../../lib/utils';
+import { Difficulty } from '../../utils/arithmeticUtils';
 
 interface DifficultyButtonProps {
   difficulty: Difficulty;

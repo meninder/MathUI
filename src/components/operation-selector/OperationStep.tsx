@@ -1,5 +1,5 @@
 import React from 'react';
-import { Operation } from '@/utils/arithmeticUtils';
+import { Operation } from '../../utils/arithmeticUtils';
 import OperationButton from './OperationButton';
 import { Plus, Minus, X, Divide, Shuffle } from 'lucide-react';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Operation, Difficulty } from '@/utils/arithmeticUtils';
+import { Operation, Difficulty } from '../utils/arithmeticUtils';
 import OperationStep from './operation-selector/OperationStep';
 import DifficultyStep from './operation-selector/DifficultyStep';
 import CountStep from './operation-selector/CountStep';
@@ -28,26 +28,26 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
   return (
     <div className="w-full max-w-md mx-auto">
       {step === 'operation' && (
-        <OperationStep 
-          selectedOperation={selectedOperation} 
-          onSelectOperation={onSelectOperation} 
+        <OperationStep
+          selectedOperation={selectedOperation}
+          onSelectOperation={onSelectOperation}
         />
       )}
       {step === 'difficulty' && (
-        <DifficultyStep 
-          selectedDifficulty={selectedDifficulty} 
-          onSelectDifficulty={onSelectDifficulty} 
+        <DifficultyStep
+          selectedDifficulty={selectedDifficulty}
+          onSelectDifficulty={onSelectDifficulty}
         />
       )}
       {step === 'count' && (
-        <CountStep 
-          count={count} 
-          onSelectCount={onSelectCount} 
-          onStart={onStart} 
+        <CountStep
+          count={count}
+          onSelectCount={onSelectCount}
+          onStart={onStart}
         />
       )}
     </div>
   );
 };
 
-export default OptionSelector; 
+export default OptionSelector;

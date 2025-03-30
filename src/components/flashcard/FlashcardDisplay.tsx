@@ -45,6 +45,9 @@ const FlashcardDisplay: React.FC<FlashcardDisplayProps> = ({
         <div className="card-back w-full h-full absolute inset-0 backface-hidden rotate-y-180">
           <div className="glass w-full h-full rounded-2xl shadow-soft p-6 flex flex-col items-center justify-center cursor-pointer select-none">
             <div className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
+              {question.questionText}
+            </div>
+            <div className="text-2xl md:text-3xl font-semibold text-primary">
               {question.answerText}
             </div>
 

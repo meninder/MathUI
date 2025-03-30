@@ -1,6 +1,6 @@
 import React from 'react';
-import { cn } from '@/lib/utils';
-import { Operation } from '@/utils/arithmeticUtils';
+import { cn } from '../../lib/utils';
+import { Operation } from '../../utils/arithmeticUtils';
 
 interface OperationButtonProps {
   operation: Operation;

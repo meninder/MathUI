@@ -3,7 +3,7 @@ import * as React from "react"
 import type {
   ToastActionElement,
   ToastProps,
-} from "@/components/ui/toast"
+} from "../components/ui/toast"
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
@@ -25,7 +25,7 @@ const actionTypes = {
 let count = 0
 
 function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER
+  count = (count + 1) % Number.MAX_VALUE
   return count.toString()
 }
 
@@ -53,15 +53,22 @@ interface State {
   toasts: ToasterToast[]
 }
 
+const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
+
 const addToRemoveQueue = (toastId: string) => {
-  if (toastId) {
-    setTimeout(() => {
-      dispatch({
-        type: "REMOVE_TOAST",
-        toastId: toastId,
-      })
-    }, TOAST_REMOVE_DELAY)
+  if (toastTimeouts.has(toastId)) {
+    return
   }
+
+  const timeout = setTimeout(() => {
+    toastTimeouts.delete(toastId)
+    dispatch({
+      type: "REMOVE_TOAST",
+      toastId: toastId,
+    })
+  }, TOAST_REMOVE_DELAY)
+
+  toastTimeouts.set(toastId, timeout)
 }
 
 export const reducer = (state: State, action: Action): State => {

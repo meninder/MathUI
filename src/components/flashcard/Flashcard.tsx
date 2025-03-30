@@ -54,7 +54,11 @@ const Flashcard: React.FC<FlashcardProps> = ({
   };
 
   const handleSubmit = () => {
-    handleAnswerSubmit(inputValue);
+    if (hasAnswered) {
+      onNext();
+    } else {
+      handleAnswerSubmit(inputValue);
+    }
   };
 
   return (
@@ -79,24 +83,13 @@ const Flashcard: React.FC<FlashcardProps> = ({
             onKeyPress={handleKeyPress}
             disabled={hasAnswered}
           />
-          {!hasAnswered && (
-            <button
-              onClick={handleSubmit}
-              className="btn-primary px-6"
-            >
-              Submit
-            </button>
-          )}
-        </div>
-
-        {hasAnswered && (
           <button
-            onClick={onNext}
-            className="btn-primary w-full"
+            onClick={handleSubmit}
+            className="btn-primary px-6"
           >
-            Next Question
+            {hasAnswered ? 'Next' : 'Submit'}
           </button>
-        )}
+        </div>
       </div>
     </div>
   );

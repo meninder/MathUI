@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "./components/ui/toaster";
+import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Layout from '@/components/Layout';
-import Home from "@/pages/Home";
-import { MultiplesHopper } from "@/components/games/MultiplesHopper";
-import NotFound from "@/pages/NotFound";
-import { ThemeProvider } from "@/providers/theme-provider";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import ArithmeticGame from "@/components/arithmetic/ArithmeticGame";
-import { MultiplesHopperSetup } from "@/components/games/MultiplesHopperSetup";
-import { cn } from "@/lib/utils";
-import { ArithmeticProvider } from '@/contexts/ArithmeticContext';
+import Layout from './components/Layout';
+import Home from "./pages/Home";
+import { MultiplesHopper } from "./components/games/MultiplesHopper";
+import NotFound from "./pages/NotFound";
+import { ThemeProvider } from "./providers/theme-provider";
+import { Button } from "./components/ui/button";
+import { Card } from "./components/ui/card";
+import ArithmeticGame from "./components/arithmetic/ArithmeticGame";
+import { MultiplesHopperSetup } from "./components/games/MultiplesHopperSetup";
+import { cn } from "./lib/utils";
+import { ArithmeticProvider } from './contexts/ArithmeticContext';
 
 const queryClient = new QueryClient();
 
@@ -33,7 +32,6 @@ function App() {
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <TooltipProvider>
           <Toaster />
-          <Sonner />
           <Router basename="/MathUI">
             <div className="min-h-screen bg-background text-foreground">
               <header className="border-b">
@@ -82,25 +80,9 @@ function App() {
                       )
                     }
                   />
-                  <Route
-                    path="*"
-                    element={
-                      <div className="text-center">
-                        <h1 className="text-4xl font-bold mb-4">404</h1>
-                        <p className="text-muted-foreground mb-4">
-                          Page not found. The page you are looking for doesn't exist or
-                          has been moved.
-                        </p>
-                        <Link to="/">
-                          <Button>Go Home</Button>
-                        </Link>
-                      </div>
-                    }
-                  />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
-
-              <Toaster />
             </div>
           </Router>
         </TooltipProvider>
