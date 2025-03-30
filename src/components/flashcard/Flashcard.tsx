@@ -37,6 +37,7 @@ const Flashcard: React.FC<FlashcardProps> = ({
     if (!answer.trim()) return;
 
     const userAnswer = parseInt(answer);
+    question.answerText = answer;
     if (userAnswer === question.answer) {
       onCorrectAnswer();
       setHasAnswered(true);
