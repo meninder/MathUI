@@ -5,6 +5,8 @@ import ProgressBar from "@/components/ProgressBar";
 import ScoreDisplay from "@/components/ScoreDisplay";
 import { cn } from "@/lib/utils";
 import { MultiplesHopperResult } from "./MultiplesHopperResult";
+import { RotateCcw } from "lucide-react";
+import { GameHeader } from "@/components/GameHeader";
 
 interface MultiplesHopperProps {
   difficulty: "easy" | "medium" | "hard";
@@ -106,10 +108,15 @@ export function MultiplesHopper({
   }
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <ProgressBar current={currentIndex + 1} total={questionCount} />
-      <ScoreDisplay correct={score} total={currentIndex + 1} />
-      <Card className="w-full max-w-md p-6">
+    <div className="min-h-screen flex flex-col items-center p-4 pt-8">
+      <GameHeader
+        score={score}
+        total={questionCount}
+        current={currentIndex + 1}
+        onRestart={handlePlayAgain}
+      />
+
+      <Card className="w-full max-w-2xl mx-auto p-6">
         <div className="space-y-4">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-2">Multiples Hopper</h2>
