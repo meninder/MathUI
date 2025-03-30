@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import ProgressBar from "@/components/ProgressBar";
-import ScoreDisplay from "@/components/ScoreDisplay";
-import { cn } from "@/lib/utils";
-import { MultiplesHopperResult } from "./MultiplesHopperResult";
-import { RotateCcw, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { GameContainer } from "@/components/game/GameContainer";
+import { GameCard } from "@/components/game/GameCard";
+import { QuestionDisplay } from "@/components/question/QuestionDisplay";
+import { NumberLine } from "@/components/question/NumberLine";
 import { GameHeader } from "@/components/GameHeader";
-import NumberLine from "@/components/NumberLine";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import SummaryScreen from "@/components/SummaryScreen";
 import { Operation } from "@/utils/arithmeticUtils";
 
@@ -176,21 +174,7 @@ export function MultiplesHopper({
 
   if (!currentQuestion) return null;
 
-  if (showResult) {
-    return (
-      <div className="animate-scale-up">
-        <SummaryScreen
-          correctAnswers={score}
-          totalQuestions={questionCount}
-          operation="Least Common Multiple"
-          difficulty={difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-          onReset={handlePlayAgain}
-          questions={questions}
-        />
-      </div>
-    );
-  }
-
+  // Calculate multiples for number lines
   const multiples1 = Array.from(
     { length: Math.floor(maxValue / currentQuestion.num1) + 1 },
     (_, i) => i * currentQuestion.num1
@@ -201,8 +185,23 @@ export function MultiplesHopper({
     (_, i) => i * currentQuestion.num2
   );
 
+  if (showResult) {
+    return (
+      <GameContainer>
+        <SummaryScreen
+          correctAnswers={score}
+          totalQuestions={questionCount}
+          operation="Least Common Multiple"
+          difficulty={difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+          onReset={handlePlayAgain}
+          questions={questions}
+        />
+      </GameContainer>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center p-4 pt-8">
+    <GameContainer>
       <GameHeader
         score={score}
         total={questionCount}
@@ -210,106 +209,93 @@ export function MultiplesHopper({
         onRestart={handlePlayAgain}
       />
 
-      <Card className="w-full max-w-4xl mx-auto p-6">
+      <GameCard maxWidth="4xl">
         <div className="space-y-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">Multiples Hopper</h2>
-            <p className="text-lg">
-              Find the least common multiple of the two fractions
-            </p>
-          </div>
+          <QuestionDisplay
+            question={`Find the least common multiple of 1/${currentQuestion.num1} and 1/${currentQuestion.num2}`}
+            size="2xl"
+          />
 
-          <div className="grid grid-cols-2 gap-8">
-            {/* Fraction 1 */}
-            <div className="space-y-4">
-              <div className="text-center text-2xl font-bold">
-                1/{currentQuestion.num1}
+          <div className="space-y-8">
+            {/* Controls and Number Lines */}
+            <div className="grid grid-cols-2 gap-8">
+              {/* Fraction 1 Controls */}
+              <div className="space-y-4">
+                <div className="text-center text-2xl font-bold">
+                  1/{currentQuestion.num1}
+                </div>
+                <div className="flex justify-center gap-4">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => handleHop('backward', 1)}
+                    disabled={position1 === 0 || hasAnswered}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => handleHop('forward', 1)}
+                    disabled={position1 >= maxValue || hasAnswered}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex justify-center gap-4">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleHop('backward', 1)}
-                  disabled={position1 === 0 || hasAnswered}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleHop('forward', 1)}
-                  disabled={position1 >= maxValue || hasAnswered}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
+
+              {/* Fraction 2 Controls */}
+              <div className="space-y-4">
+                <div className="text-center text-2xl font-bold">
+                  1/{currentQuestion.num2}
+                </div>
+                <div className="flex justify-center gap-4">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => handleHop('backward', 2)}
+                    disabled={position2 === 0 || hasAnswered}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => handleHop('forward', 2)}
+                    disabled={position2 >= maxValue || hasAnswered}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </div>
 
-            {/* Fraction 2 */}
+            {/* Stacked Number Lines */}
             <div className="space-y-4">
-              <div className="text-center text-2xl font-bold">
-                1/{currentQuestion.num2}
-              </div>
-              <div className="flex justify-center gap-4">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleHop('backward', 2)}
-                  disabled={position2 === 0 || hasAnswered}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleHop('forward', 2)}
-                  disabled={position2 >= maxValue || hasAnswered}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-              </div>
+              <NumberLine
+                maxValue={maxValue}
+                multiples={multiples1.filter(m => m <= position1)}
+                color="blue"
+                currentValue={position1}
+              />
+              <NumberLine
+                maxValue={maxValue}
+                multiples={multiples2.filter(m => m <= position2)}
+                color="green"
+                currentValue={position2}
+              />
             </div>
           </div>
 
-          {/* Stacked Number Lines */}
-          <div className="space-y-4">
-            <NumberLine
-              maxValue={maxValue}
-              multiples={multiples1.filter(m => m <= position1)}
-              color="blue"
-              lcd={position1}
-            />
-            <NumberLine
-              maxValue={maxValue}
-              multiples={multiples2.filter(m => m <= position2)}
-              color="blue"
-              lcd={position2}
-            />
-          </div>
-
-          {showAnswer && (
-            <div className="space-y-4">
-              <div
-                className={cn(
-                  "text-center text-lg font-semibold",
-                  isCorrect ? "text-green-500" : "text-red-500"
-                )}
-              >
-                {isCorrect ? "Success!" : "Incorrect!"}
-              </div>
-              <div className="flex justify-center">
-                <Button
-                  onClick={handleNextQuestion}
-                  className="flex items-center gap-2"
-                >
-                  Next Question
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </div>
+          {hasAnswered && (
+            <div className="flex justify-center">
+              <Button onClick={handleNextQuestion}>
+                Next Question
+              </Button>
             </div>
           )}
         </div>
-      </Card>
-    </div>
+      </GameCard>
+    </GameContainer>
   );
 }

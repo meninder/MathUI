@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { SetupContainer } from "@/components/setup/SetupContainer";
 import DifficultyStep from "@/components/operation-selector/DifficultyStep";
 import CountStep from "@/components/operation-selector/CountStep";
 
@@ -17,28 +16,20 @@ export function MultiplesHopperSetup({ onStart }: MultiplesHopperSetupProps) {
   };
 
   return (
-    <Card className="w-full max-w-md p-6">
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Multiples Hopper Setup</h2>
-          <p className="text-muted-foreground">
-            Practice identifying multiples of numbers with increasing difficulty.
-          </p>
-        </div>
+    <SetupContainer
+      title="Multiples Hopper Setup"
+      description="Practice identifying multiples of numbers with increasing difficulty."
+    >
+      <DifficultyStep
+        selectedDifficulty={difficulty}
+        onSelectDifficulty={setDifficulty}
+      />
 
-        <div className="space-y-8">
-          <DifficultyStep
-            selectedDifficulty={difficulty}
-            onSelectDifficulty={setDifficulty}
-          />
-
-          <CountStep
-            count={questionCount}
-            onSelectCount={setQuestionCount}
-            onStart={handleStart}
-          />
-        </div>
-      </div>
-    </Card>
+      <CountStep
+        count={questionCount}
+        onSelectCount={setQuestionCount}
+        onStart={handleStart}
+      />
+    </SetupContainer>
   );
 }

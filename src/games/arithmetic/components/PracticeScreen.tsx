@@ -1,10 +1,7 @@
 import React from 'react';
 import { useArithmetic } from '../ArithmeticContext';
 import Flashcard from '@/components/flashcard/Flashcard';
-import { cn } from '@/lib/utils';
-import { Card } from '@/components/ui/card';
-import AnswerInput from '@/components/AnswerInput';
-import ResultDisplay from '@/components/ResultDisplay';
+import { GameCard } from '@/components/game/GameCard';
 import { GameHeader } from '@/components/GameHeader';
 
 const PracticeScreen: React.FC = () => {
@@ -12,8 +9,6 @@ const PracticeScreen: React.FC = () => {
     questions,
     currentQuestionIndex,
     correctAnswers,
-    attemptedQuestions,
-    isNewQuestion,
     handleNextQuestion,
     handleCorrectAnswer,
     handleWrongAnswer,
@@ -21,12 +16,10 @@ const PracticeScreen: React.FC = () => {
     isInitialLoad
   } = useArithmetic();
 
-  const practiceClasses = isInitialLoad
-    ? "opacity-0"
-    : "animate-scale-up";
+  const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className={cn("min-h-screen flex flex-col items-center p-4 pt-8", practiceClasses)}>
+    <>
       <GameHeader
         score={correctAnswers}
         total={questions.length}
@@ -35,17 +28,19 @@ const PracticeScreen: React.FC = () => {
       />
 
       {questions.length > 0 && (
-        <div className="w-full max-w-2xl mx-auto">
-          <Flashcard
-            question={questions[currentQuestionIndex]}
-            onNext={handleNextQuestion}
-            onCorrectAnswer={handleCorrectAnswer}
-            onWrongAnswer={handleWrongAnswer}
-            isNewQuestion={isNewQuestion}
-          />
-        </div>
+        <GameCard maxWidth="2xl">
+          <div className="space-y-8">
+            <Flashcard
+              question={currentQuestion}
+              onNext={handleNextQuestion}
+              onCorrectAnswer={handleCorrectAnswer}
+              onWrongAnswer={handleWrongAnswer}
+              isNewQuestion={true}
+            />
+          </div>
+        </GameCard>
       )}
-    </div>
+    </>
   );
 };
 

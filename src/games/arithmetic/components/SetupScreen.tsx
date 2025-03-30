@@ -1,9 +1,7 @@
 import React from 'react';
 import { useArithmetic } from '../ArithmeticContext';
 import OptionSelector from '@/components/OptionSelector';
-import OperationStep from '@/components/operation-selector/OperationStep';
-import DifficultyStep from '@/components/operation-selector/DifficultyStep';
-import CountStep from '@/components/operation-selector/CountStep';
+import { SetupContainer } from '@/components/setup/SetupContainer';
 
 const SetupScreen: React.FC = () => {
   const {
@@ -18,12 +16,12 @@ const SetupScreen: React.FC = () => {
     isInitialLoad
   } = useArithmetic();
 
-  const setupClasses = isInitialLoad
-    ? "opacity-0"
-    : "animate-scale-up";
-
   return (
-    <div className={setupClasses}>
+    <SetupContainer
+      title="Arithmetic Practice Setup"
+      description="Choose your operation, difficulty, and number of questions."
+      isInitialLoad={isInitialLoad}
+    >
       <OptionSelector
         step={setupStep}
         selectedOperation={selectedOperation}
@@ -34,7 +32,7 @@ const SetupScreen: React.FC = () => {
         onSelectCount={handleSelectCount}
         onStart={handleStartPractice}
       />
-    </div>
+    </SetupContainer>
   );
 };
 
