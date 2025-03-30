@@ -1,61 +1,56 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import FlashcardDisplay from './FlashcardDisplay';
-import { AnswerInput } from './AnswerInput';
-import { ArithmeticQuestion } from '@/utils/arithmeticUtils';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react';
 
 interface FlashcardControlsProps {
-  question: ArithmeticQuestion;
-  isFlipped: boolean;
-  isAnimating: boolean;
-  hasAnswered: boolean;
-  isNewQuestion: boolean;
-  onAnswerSubmit: (answer: string) => void;
-  onNextQuestion: () => void;
+  onNext: (e: React.MouseEvent) => void;
+  onPrevious: (e: React.MouseEvent) => void;
+  canGoNext: boolean;
+  canGoPrevious: boolean;
   onFlip: () => void;
-  onKeyPress: (e: React.KeyboardEvent) => void;
-  inputRef: React.RefObject<HTMLInputElement>;
+  hasAnswered: boolean;
+  isFlipped: boolean;
 }
 
 const FlashcardControls: React.FC<FlashcardControlsProps> = ({
-  question,
-  isFlipped,
-  isAnimating,
-  hasAnswered,
-  isNewQuestion,
-  onAnswerSubmit,
-  onNextQuestion,
+  onNext,
+  onPrevious,
+  canGoNext,
+  canGoPrevious,
   onFlip,
-  onKeyPress,
-  inputRef
+  hasAnswered,
+  isFlipped
 }) => {
   return (
-    <div className="flex flex-col items-center gap-6">
-      <FlashcardDisplay
-        question={question}
-        isFlipped={isFlipped}
-        isAnimating={isAnimating}
-        hasAnswered={hasAnswered}
-        isNewQuestion={isNewQuestion}
-      />
+    <div className="flex justify-center gap-4 mt-4">
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={onPrevious}
+        disabled={!canGoPrevious}
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </Button>
 
-      <div className="flex flex-col items-center gap-4 w-full max-w-md">
-        <AnswerInput
-          ref={inputRef}
-          onSubmit={onAnswerSubmit}
-          onKeyPress={onKeyPress}
-          disabled={hasAnswered}
-        />
+      {hasAnswered && (
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={onFlip}
+        >
+          <RotateCw className="h-4 w-4" />
+        </Button>
+      )}
 
-        {hasAnswered && (
-          <button
-            onClick={onNextQuestion}
-            className="btn-primary w-full"
-          >
-            Next Question
-          </button>
-        )}
-      </div>
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={onNext}
+        disabled={!canGoNext}
+      >
+        <ChevronRight className="h-4 w-4" />
+      </Button>
     </div>
   );
 };
